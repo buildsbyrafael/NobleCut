@@ -1,0 +1,7 @@
+const USER_TYPES = {
+  CLIENTE: "CLIENTE",
+  BARBEIRO: "BARBEIRO",
+  ADMINISTRADOR: "ADMINISTRADOR"
+};
+
+module.exports = USER_TYPES;
