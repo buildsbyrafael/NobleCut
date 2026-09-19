@@ -4,7 +4,9 @@ const {
   Usuario,
   Barbeiro,
   Servico,
-  BarbeiroServico
+  BarbeiroServico,
+  Agendamento,
+  Avaliacao
 } = require("../../database/models");
 
 async function runInTransaction(callback) {
@@ -17,6 +19,26 @@ async function findUserByEmail(email, transaction) {
       email
     },
     transaction
+  });
+}
+
+async function findUserById(id, transaction) {
+  return Usuario.findByPk(id, {
+    transaction
+  });
+}
+
+async function findUsersByIds(userIds) {
+  if (userIds.length === 0) {
+    return [];
+  }
+
+  return Usuario.findAll({
+    where: {
+      id: {
+        [Op.in]: userIds
+      }
+    }
   });
 }
 
@@ -47,7 +69,11 @@ async function createBarber(data, transaction) {
   });
 }
 
-async function createBarberServices(barbeiroId, serviceIds, transaction) {
+async function createBarberServices(
+  barbeiroId,
+  serviceIds,
+  transaction
+) {
   if (serviceIds.length === 0) {
     return [];
   }
@@ -63,11 +89,88 @@ async function createBarberServices(barbeiroId, serviceIds, transaction) {
   );
 }
 
+async function deleteBarberServices(barbeiroId, transaction) {
+  return BarbeiroServico.destroy({
+    where: {
+      barbeiroId
+    },
+    transaction
+  });
+}
+
+async function findAllBarbers() {
+  return Barbeiro.findAll();
+}
+
+async function findBarberById(id, transaction) {
+  return Barbeiro.findByPk(id, {
+    transaction
+  });
+}
+
+async function findBarberServiceLinks(barbeiroId) {
+  return BarbeiroServico.findAll({
+    where: {
+      barbeiroId
+    }
+  });
+}
+
+async function findAppointmentsByBarberIds(barberIds) {
+  if (barberIds.length === 0) {
+    return [];
+  }
+
+  return Agendamento.findAll({
+    where: {
+      barbeiroId: {
+        [Op.in]: barberIds
+      }
+    }
+  });
+}
+
+async function findReviewsByAppointmentIds(appointmentIds) {
+  if (appointmentIds.length === 0) {
+    return [];
+  }
+
+  return Avaliacao.findAll({
+    where: {
+      agendamentoId: {
+        [Op.in]: appointmentIds
+      }
+    }
+  });
+}
+
+async function updateUser(usuario, data, transaction) {
+  return usuario.update(data, {
+    transaction
+  });
+}
+
+async function updateBarber(barbeiro, data, transaction) {
+  return barbeiro.update(data, {
+    transaction
+  });
+}
+
 module.exports = {
   runInTransaction,
   findUserByEmail,
+  findUserById,
+  findUsersByIds,
   findServicesByIds,
   createUser,
   createBarber,
-  createBarberServices
+  createBarberServices,
+  deleteBarberServices,
+  findAllBarbers,
+  findBarberById,
+  findBarberServiceLinks,
+  findAppointmentsByBarberIds,
+  findReviewsByAppointmentIds,
+  updateUser,
+  updateBarber
 };
