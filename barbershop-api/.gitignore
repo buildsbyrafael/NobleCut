@@ -1,0 +1,6 @@
+node_modules/
+.env
+src/database/barbershop.sqlite
+src/database/barbershop.sqlite-journal
+npm-debug.log*
+.DS_Store
