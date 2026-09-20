@@ -1,6 +1,11 @@
 const app = require("./app");
-const { sequelize } = require("./database/models");
+const sequelize = require("./database/connection");
 const env = require("./config/env");
+const {
+  startAppointmentCompletionScheduler
+} = require(
+  "./infrastructure/scheduler/appointment-completion.scheduler"
+);
 
 async function startServer() {
   try {
@@ -8,6 +13,8 @@ async function startServer() {
 
     app.listen(env.port, () => {
       console.log(`NobleCut API running on port ${env.port}`);
+
+      startAppointmentCompletionScheduler();
     });
   } catch (error) {
     console.error("Unable to start the application:", error);

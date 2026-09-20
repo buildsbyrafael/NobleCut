@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const mailConfig = require("../../config/mail");
 const passwordRecoveryTemplate = require("./templates/password-recovery");
+const appointmentConfirmationTemplate = require("./templates/appointment-confirmation");
 
 let transporter = null;
 
@@ -50,6 +51,51 @@ async function sendPasswordRecovery({ to, nome, token }) {
   });
 }
 
+async function sendAppointmentConfirmation({
+  to,
+  nome,
+  tipoDestinatario,
+  clienteNome,
+  barbeiroNome,
+  servicoNome,
+  dataHoraInicio,
+  dataHoraFim,
+  preco
+}) {
+  const template = appointmentConfirmationTemplate({
+    nome,
+    tipoDestinatario,
+    clienteNome,
+    barbeiroNome,
+    servicoNome,
+    dataHoraInicio,
+    dataHoraFim,
+    preco
+  });
+
+  if (mailConfig.mode === "console") {
+    console.log("");
+    console.log("=== NobleCut Appointment Confirmation ===");
+    console.log(`To: ${to}`);
+    console.log(`Subject: ${template.subject}`);
+    console.log(template.text);
+    console.log("==========================================");
+    console.log("");
+
+    return;
+  }
+
+  const mailer = getTransporter();
+
+  await mailer.sendMail({
+    from: mailConfig.from,
+    to,
+    subject: template.subject,
+    text: template.text
+  });
+}
+
 module.exports = {
-  sendPasswordRecovery
+  sendPasswordRecovery,
+  sendAppointmentConfirmation
 };

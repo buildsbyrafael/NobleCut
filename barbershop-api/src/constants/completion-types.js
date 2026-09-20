@@ -1,0 +1,6 @@
+const COMPLETION_TYPES = {
+  CLIENTE: "CLIENTE",
+  SISTEMA: "SISTEMA"
+};
+
+module.exports = COMPLETION_TYPES;
