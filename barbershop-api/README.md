@@ -38,7 +38,7 @@
 
   
 
-# 1. Introdução
+## 1. Introdução
 
   
 
@@ -58,15 +58,11 @@ A proposta apresentada aqui busca resolver esse problema, por meio de uma aplica
 
   
 
-> 💡 **Problema Central:** Transformar um processo de agendamento, dependente de comunicação e controle manual, em um fluxo digital centralizado, com disponibilidade calculada, regras consistentes e informações acessíveis, para todos os perfis do sistema.
-
-  
-
 ---
 
   
 
-# 2. Proposta da Solução
+## 2. Proposta da Solução
 
   
 
@@ -114,7 +110,7 @@ Dessa forma, a solução não se limita a um cadastro simples, mas constitui um 
 
   
 
-# 3. Requisitos Funcionais
+## 3. Requisitos Funcionais
 
   
 
@@ -238,7 +234,7 @@ Os requisitos funcionais descrevem as funcionalidades que o sistema deverá disp
 
   
 
-# 4. Requisitos Não Funcionais
+## 4. Requisitos Não Funcionais
 
   
 
@@ -294,7 +290,7 @@ Os requisitos não funcionais estabelecem características técnicas e de qualid
 
   
 
-# 5. Regras de Negócio
+## 5. Regras de Negócio
 
   
 
